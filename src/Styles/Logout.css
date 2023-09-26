@@ -1,0 +1,8 @@
+/* Logout.css */
+
+.logout-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}

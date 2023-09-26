@@ -1,0 +1,240 @@
+/* Shop.css */
+
+/* Shop Page */
+.Shop-Page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Sort and Category Buttons */
+.Sort-Buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.Sort-Buttons div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.Sort-Buttons label {
+    font-weight: bold;
+}
+
+.Sort-Buttons select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.Category-Buttons button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Category-Buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* Search Bar */
+.Search-Bar {
+    align-items: center;
+    width: 50px;
+    margin-bottom: 20px;
+    display: flex;
+
+}
+
+.Search-bar {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.Search-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Product List */
+.Product-List {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.Product-Item {
+    width: 20%;
+    /* 4 items per row with some spacing */
+    margin-bottom: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.Product-Item:hover {
+    transform: scale(1.02);
+}
+
+.Product-Item img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Cart Button */
+button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Cart Container */
+.Cart-Container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    z-index: 1;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.Cart-Container.open {
+    transform: translateX(0);
+}
+
+.Cart-Header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.Cart-Content {
+    padding: 20px;
+}
+
+/* Close Cart Button */
+.Close-Cart {
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.Close-Cart:hover {
+    color: #0056b3;
+}
+
+/* Cart Item */
+.Cart-Item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.Cart-Item img {
+    max-width: 80px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* Cart Total */
+.Cart-Total {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Cart Quantity Input */
+input[type="number"] {
+    width: 40px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Cart Remove Button */
+button.Cart-Remove {
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+button.Cart-Remove:hover {
+    color: #0056b3;
+}
+
+/* Edit Product Buttons */
+button.Edit-Product {
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+button.Edit-Product:hover {
+    color: #0056b3;
+}
+
+/* Delete Product Button */
+button.Delete-Product {
+    background-color: transparent;
+    color: #ff0000;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+button.Delete-Product:hover {
+    color: #aa0000;
+}
