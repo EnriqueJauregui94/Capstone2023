@@ -1,41 +1,40 @@
 import React from 'react';
+import '../Styles/MyCart.css'; // Import the MyCart component's CSS
 
 function MyCart({ cartItems, closeCart, removeFromCart, updateQuantity }) {
-    const calculateTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    };
-
     return (
-        <div className="Cart-Popup">
-            <button onClick={closeCart} className="Close-Cart">Close</button>
-            <h2>Your Cart</h2>
-            <div className="Cart-Items">
+        <div className="cart-popup">
+            <div className="cart-header">
+                <h2>Your Cart</h2>
+                <button onClick={closeCart}>Close</button>
+            </div>
+            <div className="cart-items">
                 {cartItems.map((item) => (
-                    <div key={item.id} className="Cart-Item">
-                        <div>
-                            <img src={item.image} alt={item.title} width="80" height="80" /> {/* Display the product image */}
+                    <div key={item.id} className="cart-item">
+                        <img src={item.image} alt={item.title} />
+                        <div className="cart-item-info">
                             <h3>{item.title}</h3>
+                            <p>Quantity: {item.quantity}</p>
                             <p>Price: ${item.price}</p>
+                            <div className="cart-item-actions">
+                                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                                <span>{item.quantity}</span>
+                                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                            </div>
                         </div>
-                        <div>
-                            <label>Quantity:</label>
-                            <input
-                                type="number"
-                                value={item.quantity}
-                                min="1"
-                                onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                            />
-                            <p>Total: ${item.price * item.quantity}</p>
-                        </div>
-                        <button onClick={() => removeFromCart(item.id)}>Remove</button>
                     </div>
                 ))}
             </div>
-            <div className="Cart-Total">
-                <h3>Total Amount: ${calculateTotal()}</h3>
+            <div className="cart-total">
+                <h3>Total: ${calculateTotal(cartItems)}</h3>
             </div>
         </div>
     );
+}
+
+function calculateTotal(cartItems) {
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 }
 
 export default MyCart;

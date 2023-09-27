@@ -1,28 +1,31 @@
 /* Shop.css */
 
-/* Shop Page */
+/* Shop Page Styles */
 .Shop-Page {
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    text-align: center;
 }
 
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.Category-Buttons {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
 }
 
-/* Sort and Category Buttons */
+.Category-Buttons button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
 .Sort-Buttons {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.Sort-Buttons div {
-    flex: 1;
-    margin-right: 20px;
+    align-items: center;
 }
 
 .Sort-Buttons label {
@@ -30,77 +33,25 @@ h1 {
 }
 
 .Sort-Buttons select {
-    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    outline: none;
 }
 
-.Category-Buttons button {
-    margin-right: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.Category-Buttons button:hover {
-    background-color: #0056b3;
-}
-
-/* Search Bar */
-.Search-Bar {
-    align-items: center;
-    width: 50px;
-    margin-bottom: 20px;
-    display: flex;
-
-}
-
-.Search-bar {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-.Search-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.Search-button:hover {
-    background-color: #0056b3;
-}
-
-/* Product List */
 .Product-List {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Display items in rows of 4 */
+    gap: 20px;
 }
 
 .Product-Item {
-    width: 20%;
-    /* 4 items per row with some spacing */
-    margin-bottom: 20px;
-    text-align: left;
+    color: black;
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
     padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-
-.Product-Item:hover {
-    transform: scale(1.02);
+    text-align: center;
 }
 
 .Product-Item img {
@@ -108,21 +59,33 @@ h1 {
     height: auto;
 }
 
-/* Cart Button */
-button {
-    padding: 8px 16px;
-    background-color: #007bff;
+.Product-Item button {
+    background-color: #333;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 5px 10px;
+    margin-top: 10px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.Cart-Button {
+    height: 65px;
+    position: fixed;
+    top: 55px;
+    right: 0px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Cart Container */
+.Cart-Button:hover {
+    background-color: #555;
+}
+
+/* Cart Container Styles */
 .Cart-Container {
     position: fixed;
     top: 0;
@@ -130,111 +93,73 @@ button:hover {
     width: 300px;
     height: 100%;
     background-color: #fff;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    z-index: 1;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
 }
 
-.Cart-Container.open {
-    transform: translateX(0);
-}
-
 .Cart-Header {
-    background-color: #007bff;
+    background-color: #333;
     color: #fff;
-    padding: 12px;
+    padding: 10px;
+    text-align: center;
     font-weight: bold;
-    font-size: 18px;
 }
 
 .Cart-Content {
     padding: 20px;
+    overflow-y: auto;
+    height: calc(100% - 60px);
 }
 
-/* Close Cart Button */
-.Close-Cart {
-    background-color: transparent;
-    color: #007bff;
+.Cart-Content p {
+    margin: 0;
+}
+
+.Cart-Content button {
+    background-color: #333;
+    color: #fff;
     border: none;
-    font-size: 18px;
+    padding: 5px 10px;
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin-top: 10px;
 }
 
-.Close-Cart:hover {
-    color: #0056b3;
+.Cart-Content button:hover {
+    background-color: #555;
 }
 
-/* Cart Item */
-.Cart-Item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+/* Cart Popup Styles */
+.Cart-Popup-Container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
-.Cart-Item img {
-    max-width: 80px;
-    height: auto;
+/* Style for the Search bar and button */
+.Sort-Buttons input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
     margin-right: 10px;
 }
 
-/* Cart Total */
-.Cart-Total {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Cart Quantity Input */
-input[type="number"] {
-    width: 40px;
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-}
-
-/* Cart Remove Button */
-button.Cart-Remove {
-    background-color: transparent;
-    color: #007bff;
+.Sort-Buttons button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-button.Cart-Remove:hover {
-    color: #0056b3;
-}
-
-/* Edit Product Buttons */
-button.Edit-Product {
-    background-color: transparent;
-    color: #007bff;
-    border: none;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-button.Edit-Product:hover {
-    color: #0056b3;
-}
-
-/* Delete Product Button */
-button.Delete-Product {
-    background-color: transparent;
-    color: #ff0000;
-    border: none;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-button.Delete-Product:hover {
-    color: #aa0000;
+/* Style for the search results */
+.Product-Item {
+    /* Your styles for individual product items */
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
 }
