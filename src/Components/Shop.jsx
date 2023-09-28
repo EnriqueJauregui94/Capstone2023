@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MyCart from './MyCart';
 import { createBrowserHistory } from 'history';
-import { ShoppingCart } from 'phosphor-react';
 import '../Styles/Shop.css';
 
 function Shop() {
@@ -14,9 +13,6 @@ function Shop() {
     const [editingProductId, setEditingProductId] = useState(null);
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
     const [isCartVisible, setIsCartVisible] = useState(false);
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [sortedProducts, setSortedProducts] = useState([]); // Added sortedProducts state
 
     const history = createBrowserHistory();
 
@@ -25,7 +21,6 @@ function Shop() {
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data);
-                setSortedProducts(data); // Initialize sortedProducts with the fetched data
                 setIsLoading(false);
             });
     }, []);
@@ -37,17 +32,14 @@ function Shop() {
     const handleSortingChange = (option) => {
         setSortingOption(option);
 
-        // Create a copy of products to sort without modifying the original products state
-        const sorted = [...products];
-
-        if (option === 'asc') {
-            sorted.sort((a, b) => a.price - b.price);
-        } else if (option === 'desc') {
-            sorted.sort((a, b) => b.price - a.price);
-        }
-
-        // Update the sortedProducts state with the sorted data
-        setSortedProducts(sorted);
+        fetch(`https://fakestoreapi.com/products?sort=${option}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProducts(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching sorted data:', error);
+            });
     };
 
     const addToCart = (item) => {
@@ -62,7 +54,7 @@ function Shop() {
         }
 
         setCartItemCount(cartItemCount + 1);
-        setIsCartVisible(true);
+        setIsCartVisible(true); // Show the cart pop-up when adding an item
     };
 
     const removeFromCart = (itemId) => {
@@ -88,17 +80,12 @@ function Shop() {
         setCartItemCount(newCartItemCount);
     };
 
-    const handleSearch = () => {
-        const filteredProducts = products.filter((product) =>
-            product.title.toLowerCase().includes(searchKeyword.toLowerCase())
-        );
-
-        setSearchResults(filteredProducts);
-    };
-
     return (
         <div className="Shop-Page">
             <h1>Products</h1>
+            <div className="View-Cart-Button">
+                <button onClick={() => setIsCartVisible(true)}>View Cart ({cartItemCount})</button>
+            </div>
             <div className="Category-Buttons">
                 <button onClick={() => handleCategoryChange('all')}>All</button>
                 <button onClick={() => handleCategoryChange("men's clothing")}>Men's</button>
@@ -128,22 +115,20 @@ function Shop() {
                         {/* Add more categories as needed */}
                     </select>
                 </div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        value={searchKeyword}
-                        onChange={(e) => setSearchKeyword(e.target.value)}
-                    />
-                    <button onClick={handleSearch}>Search</button>
-                </div>
             </div>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
                 <div className="Product-List">
-                    {searchResults.length > 0
-                        ? searchResults.map((product) => (
+                    {products
+                        .filter((product) => {
+                            if (selectedCategory === 'all') {
+                                return true;
+                            } else {
+                                return product.category === selectedCategory;
+                            }
+                        })
+                        .map((product) => (
                             <div key={product.id} className="Product-Item">
                                 <img src={product.image} alt={product.title} />
                                 <p>{product.title}</p>
@@ -153,46 +138,21 @@ function Shop() {
                                     <button onClick={() => addToCart(product)}>Add to Cart</button>
                                 </div>
                             </div>
-                        ))
-                        : sortedProducts
-                            .filter((product) => {
-                                if (selectedCategory === 'all') {
-                                    return true;
-                                } else {
-                                    return product.category === selectedCategory;
-                                }
-                            })
-                            .map((product) => (
-                                <div key={product.id} className="Product-Item">
-                                    <img src={product.image} alt={product.title} />
-                                    <p>{product.title}</p>
-                                    <p>${product.price}</p>
-                                    <p>Category: {product.category}</p>
-                                    <div>
-                                        <button onClick={() => addToCart(product)}>Add to Cart</button>
-                                    </div>
-                                </div>
-                            ))}
+                        ))}
                 </div>
             )}
-
-            {/* Replace the cart button with the logo */}
-            <div className="Cart-Button" onClick={() => setIsCartVisible(!isCartVisible)}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                    <div>
-                        <ShoppingCart size={32} />
-                    </div>
-                    <div style={{ fontSize: '12px', float: 'right' }}>
-                        Cart ({cartItemCount})
-                    </div>
-                </div>
-            </div>
             {isCartVisible && (
                 <div className="Cart-Container">
                     <div className="Cart-Header">Cart</div>
                     <div className="Cart-Content">
                         <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
                     </div>
+                </div>
+            )}
+            {/* Display the CartPopup component */}
+            {isCartVisible && (
+                <div className="Cart-Popup-Container">
+                    <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
                 </div>
             )}
         </div>
