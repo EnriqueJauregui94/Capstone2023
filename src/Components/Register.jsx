@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/Register.css';
 
 const APIURL = 'https://fakestoreapi.com/users';
+const LOGIN_URL = '/login';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -49,7 +50,6 @@ function Register() {
         <div className="signup-page">
             <h2>Sign Up</h2>
             <form onSubmit={handleSignup}>
-
                 <div className="form-group">
                     <label htmlFor="password">Name:</label>
                     <input
@@ -100,7 +100,10 @@ function Register() {
             </form>
             {registrationStatus.error && <div className="error-message">{registrationStatus.error}</div>}
             {registrationStatus.success && (
-                <div className="success-message">Registration successful! You can now log in.</div>
+                <div className="success-message">
+                    Registration successful! You can now{' '}
+                    <a href={LOGIN_URL}>log in</a>. {/* Link to the login page */}
+                </div>
             )}
         </div>
     );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MyCart from './MyCart';
+import Card from './Card.jsx'
 import { createBrowserHistory } from 'history';
 import '../Styles/Shop.css';
 
@@ -113,8 +114,8 @@ function Shop() {
                     <label>Sort by Price:</label>
                     <select onChange={(e) => handleSortingChange(e.target.value)}>
                         <option value="">Select</option>
-                        <option value="asc">Low to High</option>
-                        <option value="desc">High to Low</option>
+                        <option value="desc">Low to High</option>
+                        <option value="asc">High to Low</option>
                     </select>
                 </div>
                 <div>
@@ -125,7 +126,7 @@ function Shop() {
                         <option value="men's clothing">Men's</option>
                         <option value="women's clothing">Women's</option>
                         <option value="electronics">Electronics</option>
-                        <option value="jewelry">Jewelry</option>
+                        <option value="jewelery">Jewelery</option>
                     </select>
                 </div>
                 <div className="Search-Bar">

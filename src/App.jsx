@@ -7,6 +7,8 @@ import Register from './Components/Register.jsx';
 import MyCart from './Components/MyCart.jsx';
 import Shop from './Components/Shop.jsx';
 import Logout from './Components/Logout.jsx';
+import Card from './Components/Card.jsx';
+import './Styles/Card.css';
 import './Styles/Logout.css';
 import './Styles/Shop.css';
 import './Styles/MyCart.css';

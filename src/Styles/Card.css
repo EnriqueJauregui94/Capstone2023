@@ -1,0 +1,30 @@
+.product-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.product-detail-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-detail-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-detail-card p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.product-detail-card img {
+    max-width: 100%;
+    height: auto;
+}
