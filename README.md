@@ -1,3 +1,15 @@
+Capstone project link 
+https://capstone2023.netlify.app/shop
+
+missing a few things but was almost done
+
+
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
