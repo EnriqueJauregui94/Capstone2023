@@ -13,6 +13,7 @@ function Shop() {
     const [editingProductId, setEditingProductId] = useState(null);
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
     const [isCartVisible, setIsCartVisible] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const history = createBrowserHistory();
 
@@ -54,7 +55,7 @@ function Shop() {
         }
 
         setCartItemCount(cartItemCount + 1);
-        setIsCartVisible(true); // Show the cart pop-up when adding an item
+        setIsCartVisible(true);
     };
 
     const removeFromCart = (itemId) => {
@@ -80,9 +81,22 @@ function Shop() {
         setCartItemCount(newCartItemCount);
     };
 
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        // Filter products based on the search query
+        const filteredProducts = products.filter((product) =>
+            product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        // Update the products state with the filtered results
+        setProducts(filteredProducts);
+    };
+
     return (
         <div className="Shop-Page">
-            <h1>Products</h1>
             <div className="View-Cart-Button">
                 <button onClick={() => setIsCartVisible(true)}>View Cart ({cartItemCount})</button>
             </div>
@@ -91,7 +105,7 @@ function Shop() {
                 <button onClick={() => handleCategoryChange("men's clothing")}>Men's</button>
                 <button onClick={() => handleCategoryChange("women's clothing")}>Women's</button>
                 <button onClick={() => handleCategoryChange('electronics')}>Electronics</button>
-                <button onClick={() => handleCategoryChange('jewelry')}>Jewelry</button>
+                <button onClick={() => handleCategoryChange('jewelery')}>Jewelery</button>
                 {isUserAuthenticated && <button onClick={addNewProduct}>Add New Product</button>}
             </div>
             <div className="Sort-Buttons">
@@ -112,8 +126,16 @@ function Shop() {
                         <option value="women's clothing">Women's</option>
                         <option value="electronics">Electronics</option>
                         <option value="jewelry">Jewelry</option>
-                        {/* Add more categories as needed */}
                     </select>
+                </div>
+                <div className="Search-Bar">
+                    <input
+                        type="text"
+                        placeholder="Search for products..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                    <button onClick={handleSearchSubmit}>Search</button>
                 </div>
             </div>
             {isLoading ? (
@@ -149,7 +171,6 @@ function Shop() {
                     </div>
                 </div>
             )}
-            {/* Display the CartPopup component */}
             {isCartVisible && (
                 <div className="Cart-Popup-Container">
                     <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />

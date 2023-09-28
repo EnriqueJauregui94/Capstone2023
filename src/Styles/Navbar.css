@@ -1,5 +1,5 @@
 #Navbar {
-    background-color: #333;
+    background-color: #000000;
     color: #fff;
     padding: 5px 0;
     position: fixed;
@@ -8,6 +8,7 @@
     left: 0;
     height: 40px;
     border-bottom: 2px solid #fff;
+    box-shadow: 0px 0px 5px #ccc;
 }
 
 #Navbar ul {
@@ -16,9 +17,8 @@
     margin: 0;
     display: flex;
     justify-content: center;
-    /* Center the list horizontally */
     align-items: center;
-    /* Center items vertically */
+
 }
 
 #Navbar li {
@@ -64,17 +64,8 @@
     align-items: center;
 }
 
-/* Style the cart icon */
-.Nav-item .phosphor-shopping-cart {
-    height: 20%;
-    color: #fff;
-}
 
-/* Style the cart text */
-.Nav-item .phosphor-shopping-cart+div {
-    font-size: 12px;
-    margin-top: 5px;
-}
+
 
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
