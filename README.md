@@ -1,5 +1,5 @@
 Capstone project link 
-https://capstone2023.netlify.app/shop
+https://capstone2023.netlify.app
 
 missing a few things but was almost done
 
