@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MyCart from './MyCart';
-import Card from './Card.jsx'
+import ProductDetails from './ProductDetails.jsx'
 import { createBrowserHistory } from 'history';
 import '../Styles/Shop.css';
 
@@ -15,6 +15,8 @@ function Shop() {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
     const [isCartVisible, setIsCartVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedProductId, setSelectedProductId] = useState(null);
+
 
     const history = createBrowserHistory();
 
@@ -26,6 +28,16 @@ function Shop() {
                 setIsLoading(false);
             });
     }, []);
+
+    // Function to handle product image click and open the popup
+    const handleProductImageClick = (productId) => {
+        setSelectedProductId(productId);
+    };
+
+    // Function to close the product details popup
+    const closeProductDetails = () => {
+        setSelectedProductId(null);
+    };
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
@@ -88,13 +100,12 @@ function Shop() {
 
     const handleSearchSubmit = () => {
         // Filter products based on the search query
-        const filteredProducts = products.filter((product) =>
+        const filtered = products.filter((product) =>
             product.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
-
-        // Update the products state with the filtered results
-        setProducts(filteredProducts);
+        setFilteredProducts(filtered);
     };
+
 
     return (
         <div className="Shop-Page">
@@ -119,66 +130,66 @@ function Shop() {
                     </select>
                 </div>
                 <div>
-                    <label>Sort by Category:</label>
-                    <select onChange={(e) => handleCategoryChange(e.target.value)}>
-                        <option value="">Select</option>
-                        <option value="all">All</option>
-                        <option value="men's clothing">Men's</option>
-                        <option value="women's clothing">Women's</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="jewelery">Jewelery</option>
-                    </select>
+
                 </div>
                 <div className="Search-Bar">
                     <input
                         type="text"
                         placeholder="Search for products..."
                         value={searchQuery}
-                        onChange={handleSearchChange}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
+                    {/* Call handleSearchSubmit when the button is clicked */}
                     <button onClick={handleSearchSubmit}>Search</button>
                 </div>
             </div>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <div className="Product-List">
-                    {products
-                        .filter((product) => {
-                            if (selectedCategory === 'all') {
-                                return true;
-                            } else {
-                                return product.category === selectedCategory;
-                            }
-                        })
-                        .map((product) => (
-                            <div key={product.id} className="Product-Item">
-                                <img src={product.image} alt={product.title} />
-                                <p>{product.title}</p>
-                                <p>${product.price}</p>
-                                <p>Category: {product.category}</p>
-                                <div>
-                                    <button onClick={() => addToCart(product)}>Add to Cart</button>
+            {
+                isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <div className="Product-List">
+                        {products
+                            .filter((product) => {
+                                if (selectedCategory === 'all') {
+                                    return true;
+                                } else {
+                                    return product.category === selectedCategory;
+                                }
+                            })
+                            .map((product) => (
+                                <div key={product.id} className="Product-Item">
+                                    <img src={product.image} alt={product.title} />
+                                    <p>{product.title}</p>
+                                    <p>${product.price}</p>
+                                    <p>Category: {product.category}</p>
+                                    <div>
+                                        <button onClick={() => addToCart(product)}>Add to Cart</button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                </div>
-            )}
-            {isCartVisible && (
-                <div className="Cart-Container">
-                    <div className="Cart-Header">Cart</div>
-                    <div className="Cart-Content">
+                            ))}
+                    </div>
+                )
+            }
+            {
+                isCartVisible && (
+                    <div className="Cart-Container">
+                        <div className="Cart-Header">Cart</div>
+                        <div className="Cart-Content">
+                            <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
+                        </div>
+                    </div>
+                )
+            }
+            {
+                isCartVisible && (
+                    <div className="Cart-Popup-Container">
                         <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
                     </div>
-                </div>
-            )}
-            {isCartVisible && (
-                <div className="Cart-Popup-Container">
-                    <MyCart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }
+
 
 export default Shop;

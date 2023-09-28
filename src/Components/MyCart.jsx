@@ -36,7 +36,7 @@ function MyCart({ cartItems, closeCart, removeFromCart, updateQuantity }) {
                             <p>Quantity: {item.quantity}</p>
                             <p>Price: ${item.price}</p>
                             <div className="cart-item-actions">
-                                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                                <button onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}>-</button>
                                 <span>{item.quantity}</span>
                                 <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                                 <button onClick={() => removeFromCart(item.id)}>Remove</button>
@@ -53,7 +53,14 @@ function MyCart({ cartItems, closeCart, removeFromCart, updateQuantity }) {
 }
 
 function calculateTotal(cartItems) {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    if (cartItems.length === 0) {
+        return 0;
+    }
+
+    // Calculate the total
+    const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    return total.toFixed(2);
 }
 
 export default MyCart;
