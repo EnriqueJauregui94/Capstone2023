@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/Login.css';
 
@@ -8,17 +8,13 @@ export default function LoginForm() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [token, setToken] = useState('');
 
     const logIn = (newToken) => {
-        console.log('Setting token in sessionStorage:', newToken);
         sessionStorage.setItem('token', newToken);
         setToken(newToken);
-
-        // Retrieve the cart data from local storage
-        const cartData = JSON.parse(localStorage.getItem('cart')) || [];
     };
 
     const getToken = () => {
@@ -39,14 +35,17 @@ export default function LoginForm() {
 
             if (response.ok) {
                 logIn(result.token);
-                setSuccessMessage(result.message);
-                navigate('/shop'); // Change to '/shop' for redirection
+                setMessage('Successfully Signed In');
+                setError('');
+                navigate('/shop'); // Redirect to '/shop' for successful login
             } else {
-                setError(result.error);
+                setMessage('');
+                setError('Invalid Username or Password');
                 console.error('Login failed:', result.error);
             }
         } catch (error) {
-            setError(error);
+            setMessage('');
+            setError('An error occurred during login');
             console.error(error);
         }
     };
@@ -82,7 +81,7 @@ export default function LoginForm() {
                 <button type="submit">Login</button>
             </form>
             {error && <p className="error-message">{error}</p>}
-            {token && <p className="success-message">Login successful! Token: {token}</p>}
+            {message && <p className="success-message">{message}</p>}
         </div>
     );
 }
